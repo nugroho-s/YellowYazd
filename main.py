@@ -11,8 +11,7 @@ if __name__ == '__main__':
     print("Listening to {}:{}".format(HOST, PORT))
     conn, addr = socket.accept()
     print("Connected with {}".format(addr))
-    for i in range(1,6):
-        conn.send("This is message #{}\n".format(i).encode())
-        time.sleep(1)
+    reply = conn.recv(4096)
+    conn.send("hello {}!".format(reply.decode()).encode())
     conn.close()
     print("Connection closed")
