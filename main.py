@@ -2,7 +2,13 @@ import socket
 import time
 
 HOST = "127.0.0.1"
-PORT = 61651
+PORT = 6165
+
+1
+def protocolHandlers(conn, req):
+    if "GET" in req:
+        conn.send("ANSWER".encode())
+
 
 if __name__ == '__main__':
     socket = socket.socket()
@@ -12,6 +18,6 @@ if __name__ == '__main__':
     conn, addr = socket.accept()
     print("Connected with {}".format(addr))
     reply = conn.recv(4096)
-    conn.send("hello {}!".format(reply.decode()).encode())
+    protocolHandlers(conn, reply.decode())
     conn.close()
     print("Connection closed")
